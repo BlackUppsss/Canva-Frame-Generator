@@ -18,7 +18,17 @@ export function ExportFallbackPanel({ candidate, onStatus, onError }: ExportFall
       <Button disabled={!svg} variant="secondary" onClick={() => svg && downloadSvg(svg, `${baseName}.svg`)} stretch>
         Download SVG
       </Button>
-      <Button disabled={!svg} variant="secondary" onClick={() => svg && downloadPdf(svg, `${baseName}.pdf`)} stretch>
+      <Button disabled={!svg} variant="secondary" onClick={async () => {
+            try {
+                if (svg) {
+                    await downloadPdf(svg, `${baseName}.pdf`);
+                    onStatus("PDF downloaded with the converted frame preview.");
+                }
+            }
+            catch {
+                onError("Unable to download PDF.");
+            }
+        }} stretch>
         Download PDF
       </Button>
       <Button disabled={!svg} variant="secondary" onClick={async () => {

@@ -147,7 +147,15 @@ function App() {
             </div>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
                 <button onClick={() => downloadSvg(svg, `${candidate.originalFileName.replace(/\.[^.]+$/, "")}.svg`)}>Download SVG</button>
-                <button onClick={() => downloadPdf(svg, `${candidate.originalFileName.replace(/\.[^.]+$/, "")}.pdf`)}>Download PDF</button>
+                <button onClick={async () => {
+                    try {
+                        await downloadPdf(svg, `${candidate.originalFileName.replace(/\.[^.]+$/, "")}.pdf`);
+                        setMessage("PDF downloaded with the converted frame preview.");
+                    }
+                    catch (caughtError) {
+                        setError(caughtError instanceof Error ? caughtError.message : "Unable to download PDF.");
+                    }
+                }}>Download PDF</button>
                 <button onClick={() => copySvgToClipboard(svg).then(() => setMessage("SVG copied to clipboard."))}>Copy SVG</button>
             </div>
         </section>}
