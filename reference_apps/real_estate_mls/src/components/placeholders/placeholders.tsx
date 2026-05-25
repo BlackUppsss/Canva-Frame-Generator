@@ -1,26 +1,14 @@
-import {
-  Box,
-  Column,
-  Columns,
-  Placeholder,
-  Rows,
-  TextPlaceholder,
-  TitlePlaceholder,
-} from "@canva/app-ui-kit";
+import { Box, Column, Columns, Placeholder, Rows, TextPlaceholder, TitlePlaceholder, } from "@canva/app-ui-kit";
 import React from "react";
-
-export const ListPlaceholder = () => (
-  <Columns spacing="2u" align="start" alignY="stretch">
+export const ListPlaceholder = () => (<Columns spacing="2u" align="start" alignY="stretch">
     <Column width="content">
       <Box width="full" height="full">
-        <div
-          style={{
-            height: "60px",
-            width: "60px",
-            paddingLeft: "var(--ui-kit-space-050)",
-          }}
-        >
-          <Placeholder shape="rectangle" />
+        <div style={{
+        height: "60px",
+        width: "60px",
+        paddingLeft: "var(--ui-kit-space-050)",
+    }}>
+          <Placeholder shape="rectangle"/>
         </div>
       </Box>
     </Column>
@@ -30,21 +18,18 @@ export const ListPlaceholder = () => (
         <TextPlaceholder />
       </Rows>
     </Column>
-  </Columns>
-);
-
-export const GridPlaceholder = () => (
-  <Columns spacing="2u" alignY="stretch">
+  </Columns>);
+export const GridPlaceholder = () => (<Columns spacing="2u" alignY="stretch">
     <Column width="1/2">
       <Rows spacing="1u">
         <Box width="full" height="full">
           <div style={{ height: "120px" }}>
-            <Placeholder shape="rectangle" />
+            <Placeholder shape="rectangle"/>
           </div>
         </Box>
         <Rows spacing="0">
           <TitlePlaceholder />
-          <TitlePlaceholder size="small" />
+          <TitlePlaceholder size="small"/>
         </Rows>
       </Rows>
     </Column>
@@ -52,14 +37,13 @@ export const GridPlaceholder = () => (
       <Rows spacing="1u">
         <Box width="full" height="full">
           <div style={{ height: "120px" }}>
-            <Placeholder shape="rectangle" />
+            <Placeholder shape="rectangle"/>
           </div>
         </Box>
         <Rows spacing="0">
           <TitlePlaceholder />
-          <TitlePlaceholder size="small" />
+          <TitlePlaceholder size="small"/>
         </Rows>
       </Rows>
     </Column>
-  </Columns>
-);
+  </Columns>);

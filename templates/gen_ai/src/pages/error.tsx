@@ -4,38 +4,26 @@ import { useNavigate } from "react-router-dom";
 import { useAppContext } from "src/context/use_app_context";
 import { Paths } from "src/routes/paths";
 import * as styles from "styles/components.css";
-
-/**
- * Bare bones Error Page, please add relevant information and behavior that your app requires.
- */
 export const ErrorPage = () => {
-  const navigate = useNavigate();
-  const { setPromptInput, setIsLoadingImages } = useAppContext();
-  const intl = useIntl();
-
-  const onClick = () => {
-    setPromptInput("");
-    setIsLoadingImages(false);
-    navigate(Paths.HOME);
-  };
-
-  return (
-    <div className={styles.scrollContainer}>
+    const navigate = useNavigate();
+    const { setPromptInput, setIsLoadingImages } = useAppContext();
+    const intl = useIntl();
+    const onClick = () => {
+        setPromptInput("");
+        setIsLoadingImages(false);
+        navigate(Paths.HOME);
+    };
+    return (<div className={styles.scrollContainer}>
       <Rows spacing="2u">
         <Text>
-          <FormattedMessage
-            defaultMessage="Something went wrong."
-            description="A message to indicate that something went wrong, but no more information is available"
-          />
+          <FormattedMessage defaultMessage="Something went wrong." description="A message to indicate that something went wrong, but no more information is available"/>
         </Text>
         <Button variant="primary" onClick={onClick} stretch={true}>
           {intl.formatMessage({
             defaultMessage: "Start over",
-            description:
-              "A button label to clear the error and the prompt and start again",
-          })}
+            description: "A button label to clear the error and the prompt and start again",
+        })}
         </Button>
       </Rows>
-    </div>
-  );
+    </div>);
 };

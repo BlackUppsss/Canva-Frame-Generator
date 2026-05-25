@@ -1,46 +1,25 @@
-import type {
-  DataConnectorIntent,
-  GetDataTableRequest,
-  GetDataTableResponse,
-  RenderSelectionUiRequest,
-} from "@canva/intents/data";
+import type { DataConnectorIntent, GetDataTableRequest, GetDataTableResponse, RenderSelectionUiRequest, } from "@canva/intents/data";
 import { createRoot } from "react-dom/client";
 import { AppUiProvider, Rows, Text } from "@canva/app-ui-kit";
 import * as styles from "styles/components.css";
-
-// This example demonstrates how to launch Content Publisher Intent and Bulk Create with Data Connector Intent from within a Design Editor Intent.
-// For a more detailed example of the Data Connector Intent, refer to the data_connector_intent example.
-
-// Fetches data from external sources, transforms and returns the Canva's DataTable format
-async function getDataTable(
-  request: GetDataTableRequest,
-): Promise<GetDataTableResponse> {
-  const { signal } = request;
-
-  // Check if the operation has been aborted.
-  if (signal.aborted) {
+async function getDataTable(request: GetDataTableRequest): Promise<GetDataTableResponse> {
+    const { signal } = request;
+    if (signal.aborted) {
+        return {
+            status: "app_error",
+            message: "The data fetch operation was cancelled.",
+        };
+    }
     return {
-      status: "app_error",
-      message: "The data fetch operation was cancelled.",
+        status: "completed",
+        dataTable: {
+            rows: [{ cells: [{ type: "string", value: "Fetched data" }] }],
+        },
     };
-  }
-
-  return {
-    status: "completed",
-    dataTable: {
-      rows: [{ cells: [{ type: "string", value: "Fetched data" }] }],
-    },
-  };
 }
-
-// Renders a UI component for selecting and configuring data from external sources.
-async function renderSelectionUi(
-  request: RenderSelectionUiRequest,
-): Promise<void> {
-  const root = createRoot(document.getElementById("root") as Element);
-
-  root.render(
-    <AppUiProvider>
+async function renderSelectionUi(request: RenderSelectionUiRequest): Promise<void> {
+    const root = createRoot(document.getElementById("root") as Element);
+    root.render(<AppUiProvider>
       <div className={styles.scrollContainer}>
         <Rows spacing="2u">
           <Text>
@@ -49,13 +28,10 @@ async function renderSelectionUi(
           </Text>
         </Rows>
       </div>
-    </AppUiProvider>,
-  );
+    </AppUiProvider>);
 }
-
 const dataConnector: DataConnectorIntent = {
-  getDataTable,
-  renderSelectionUi,
+    getDataTable,
+    renderSelectionUi,
 };
-
 export default dataConnector;

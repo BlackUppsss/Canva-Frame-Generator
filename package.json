@@ -1,10 +1,13 @@
 {
-  "name": "canva-apps-sdk-starter-kit",
-  "description": "A boilerplate for creating Canva Apps.",
+  "name": "canva-frame-generator",
+  "description": "Convert PNG/SVG to native Canva frames",
+  "homepage": "https://BlackUppsss.github.io/Canva-Frame-Generator",
   "engines": {
     "node": "^22 || ^24"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "start": "tsx ./scripts/start/start.ts",
     "start:preview": "npm run start -- --preview",
     "extract": "formatjs extract \"src/**/*.{ts,tsx}\" --out-file dist/messages_en.json",
@@ -38,6 +41,8 @@
     "@canva/intents": "^2.5.0",
     "@canva/platform": "^2.2.2",
     "@canva/user": "^2.2.0",
+    "imagetracerjs": "^1.2.6",
+    "jspdf": "^4.2.1",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "react-intl": "^7.1.11"
@@ -75,6 +80,7 @@
     "exponential-backoff": "3.1.2",
     "express": "4.22.1",
     "express-basic-auth": "1.2.1",
+    "gh-pages": "^6.3.0",
     "globals": "16.3.0",
     "jest": "30.2.0",
     "jest-css-modules-transform": "4.4.2",

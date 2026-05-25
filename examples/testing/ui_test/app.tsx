@@ -1,10 +1,9 @@
-// For usage information, see the README.md file.
 import { Button, Rows, Text } from "@canva/app-ui-kit";
 import * as styles from "styles/components.css";
-
-export const App = (props: { onClick(): void }) => {
-  return (
-    <div className={styles.scrollContainer}>
+export const App = (props: {
+    onClick(): void;
+}) => {
+    return (<div className={styles.scrollContainer}>
       <Rows spacing="2u">
         <Text>This example demonstrates how to test your app's UI.</Text>
         <Text>
@@ -15,6 +14,5 @@ export const App = (props: { onClick(): void }) => {
           Do something cool
         </Button>
       </Rows>
-    </div>
-  );
+    </div>);
 };

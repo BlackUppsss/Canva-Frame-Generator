@@ -6,15 +6,14 @@ import { createHashRouter, RouterProvider } from "react-router-dom";
 import { ContextProvider } from "../../context/app_context";
 import { ErrorPage } from "../../pages/error";
 import { routes } from "../../routes/routes";
-
-export const App = ({ request }: { request: RenderSelectionUiRequest }) => (
-  <AppI18nProvider>
+export const App = ({ request }: {
+    request: RenderSelectionUiRequest;
+}) => (<AppI18nProvider>
     <AppUiProvider>
       <ErrorBoundary fallback={<ErrorPage />}>
         <ContextProvider renderSelectionUiRequest={request}>
-          <RouterProvider router={createHashRouter(routes)} />
+          <RouterProvider router={createHashRouter(routes)}/>
         </ContextProvider>
       </ErrorBoundary>
     </AppUiProvider>
-  </AppI18nProvider>
-);
+  </AppI18nProvider>);

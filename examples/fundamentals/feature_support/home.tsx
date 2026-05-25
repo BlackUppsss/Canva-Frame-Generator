@@ -1,16 +1,9 @@
-// For usage information, see the README.md file.
 import { Button, Rows, Text, Title } from "@canva/app-ui-kit";
-
 type HomePageProps = {
-  enterInteractionPage: () => void;
+    enterInteractionPage: () => void;
 };
-
-/**
- * Home Page component containing page controls
- **/
 export const HomePage = (props: HomePageProps) => {
-  return (
-    <Rows spacing="1.5u">
+    return (<Rows spacing="1.5u">
       <Title>Home page</Title>
       <Text>
         This example app demonstrates how to toggle interactive UI based on the
@@ -19,6 +12,5 @@ export const HomePage = (props: HomePageProps) => {
       <Button variant="primary" onClick={props.enterInteractionPage}>
         Enter interactions page
       </Button>
-    </Rows>
-  );
+    </Rows>);
 };

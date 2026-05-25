@@ -35,10 +35,12 @@
     "removeComments": true,
     "preserveConstEnums": true,
     "allowSyntheticDefaultImports": true,
-    "baseUrl": "./",
     "paths": {
       "assets": ["./examples/assets"],
-      "styles": ["./styles"]
+      "assets/*": ["./examples/assets/*"],
+      "styles": ["./styles"],
+      "styles/*": ["./styles/*"],
+      "src/*": ["./src/*"]
     }
   },
   "include": ["**/*"],
