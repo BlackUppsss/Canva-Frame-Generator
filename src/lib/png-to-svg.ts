@@ -36,8 +36,13 @@ export async function tracePngToSvg(file: File, settings: TraceSettings): Promis
     context.drawImage(image, 0, 0);
     const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
     for (let i = 0; i < imageData.data.length; i += 4) {
+        const red = imageData.data[i] ?? 0;
+        const green = imageData.data[i + 1] ?? 0;
+        const blue = imageData.data[i + 2] ?? 0;
         const alpha = imageData.data[i + 3] ?? 255;
-        const value = settings.invertMask ? 255 - alpha : alpha;
+        const luminance = 0.299 * red + 0.587 * green + 0.114 * blue;
+        const maskValue = alpha < 255 ? Math.min(alpha, luminance) : luminance;
+        const value = settings.invertMask ? 255 - maskValue : maskValue;
         imageData.data[i] = value;
         imageData.data[i + 1] = value;
         imageData.data[i + 2] = value;

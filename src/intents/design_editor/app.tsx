@@ -19,7 +19,7 @@ export const App = () => {
     const [errorMessage, setErrorMessage] = useState<string>();
     const [statusMessage, setStatusMessage] = useState<string>();
     const [settings, setSettings] = useState<TraceSettings>({
-        threshold: 128,
+        threshold: 220,
         smoothness: 1,
         invertMask: false,
         outputMode: "auto",

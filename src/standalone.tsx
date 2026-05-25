@@ -22,7 +22,7 @@ function App() {
     const [message, setMessage] = useState<string>();
     const [error, setError] = useState<string>();
     const [settings, setSettings] = useState<TraceSettings>({
-        threshold: 128,
+        threshold: 220,
         smoothness: 1,
         invertMask: false,
         outputMode: "auto",
@@ -131,7 +131,7 @@ function App() {
         </section>
 
         {candidate?.sourceType === "png" && <section style={{ display: "grid", gap: 12, marginBottom: 20 }}>
-            <label>Trace threshold: {settings.threshold}</label>
+            <label>White shape sensitivity: {settings.threshold}</label>
             <input type="range" min="1" max="255" value={settings.threshold} onChange={(event) => updateThreshold(Number(event.target.value))} />
             <label>Smoothness: {settings.smoothness}</label>
             <input type="range" min="0" max="5" step="0.5" value={settings.smoothness} onChange={(event) => updateSmoothness(Number(event.target.value))} />
