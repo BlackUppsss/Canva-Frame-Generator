@@ -8,6 +8,13 @@ import { copySvgToClipboard, downloadSvg } from "./lib/export-svg";
 import { downloadPdf } from "./lib/export-pdf";
 import type { FrameCandidate, ProcessingStatus, TraceSettings } from "./lib/types";
 
+const checkerboardBackground = {
+    backgroundColor: "#f3f4f6",
+    backgroundImage: "linear-gradient(45deg, #cbd5e1 25%, transparent 25%), linear-gradient(-45deg, #cbd5e1 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #cbd5e1 75%), linear-gradient(-45deg, transparent 75%, #cbd5e1 75%)",
+    backgroundSize: "20px 20px",
+    backgroundPosition: "0 0, 0 10px, 10px -10px, -10px 0px",
+};
+
 function App() {
     const [file, setFile] = useState<File>();
     const [candidate, setCandidate] = useState<FrameCandidate>();
@@ -142,7 +149,7 @@ function App() {
                 </div>
                 <div>
                     <h2>Converted SVG</h2>
-                    <div style={{ border: "1px solid #e5e7eb", borderRadius: 12, padding: 16, minHeight: 220 }} dangerouslySetInnerHTML={{ __html: svg }} />
+                    <div style={{ ...checkerboardBackground, border: "1px solid #e5e7eb", borderRadius: 12, padding: 16, minHeight: 220, display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }} dangerouslySetInnerHTML={{ __html: svg }} />
                 </div>
             </div>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
