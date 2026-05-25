@@ -24,37 +24,6 @@ A Canva App that converts PNG and SVG files into native Canva frames and editabl
 - ImageTracerJS (PNG to SVG tracing)
 - jsPDF (PDF export fallback)
 
-## Getting Started
-
-### Prerequisites
-
-- Node.js 22 or 24
-- npm or yarn
-
-### Installation
-
-```bash
-npm install
-```
-
-### Development
-
-```bash
-npm start
-```
-
-### Build
-
-```bash
-npm run build
-```
-
-### Deploy to GitHub Pages
-
-```bash
-npm run deploy
-```
-
 ## Limitations
 
 - Canva Apps require a backend server for full authentication
