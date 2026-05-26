@@ -46,7 +46,8 @@ export async function downloadPdf(svg: string, fileName = "canva-frame-generator
     if (!context) {
         throw new Error("Unable to create PDF render canvas.");
     }
-    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.fillStyle = "#ffffff";
+    context.fillRect(0, 0, canvas.width, canvas.height);
     const blob = new Blob([svg], { type: "image/svg+xml;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     try {

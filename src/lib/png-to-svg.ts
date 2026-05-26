@@ -22,10 +22,18 @@ function loadImageFromFile(file: File): Promise<HTMLImageElement> {
     });
 }
 
-function isVisibleForegroundPath(path: SVGPathElement): boolean {
+function isTransparentPath(path: SVGPathElement): boolean {
     const opacity = Number.parseFloat(path.getAttribute("opacity") ?? "1");
+    return opacity <= 0;
+}
+
+function isTracerBackgroundPath(path: SVGPathElement): boolean {
     const fill = path.getAttribute("fill") ?? "";
-    return opacity > 0 && !fill.includes("rgb(0,0,0)") && !fill.includes("rgb(0, 0, 0)");
+    return fill.includes("rgb(0,0,0)") || fill.includes("rgb(0, 0, 0)");
+}
+
+function isVisibleForegroundPath(path: SVGPathElement): boolean {
+    return !isTransparentPath(path) && !isTracerBackgroundPath(path);
 }
 
 function cleanTracedSvg(svg: string): string {
@@ -35,8 +43,8 @@ function cleanTracedSvg(svg: string): string {
             path.remove();
             return;
         }
-        path.setAttribute("fill", "#ffffff");
-        path.setAttribute("stroke", "#ffffff");
+        path.setAttribute("fill", "#000000");
+        path.setAttribute("stroke", "#000000");
         path.setAttribute("opacity", "1");
     });
     return new XMLSerializer().serializeToString(doc.documentElement);
@@ -45,7 +53,7 @@ function cleanTracedSvg(svg: string): string {
 function extractPathData(svg: string): string[] {
     const doc = new DOMParser().parseFromString(svg, "image/svg+xml");
     return Array.from(doc.querySelectorAll("path"))
-        .filter(isVisibleForegroundPath)
+        .filter((path) => !isTransparentPath(path))
         .map((path) => path.getAttribute("d"))
         .filter((path): path is string => Boolean(path));
 }
