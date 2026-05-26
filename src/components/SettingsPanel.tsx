@@ -8,7 +8,7 @@ export function SettingsPanel({ settings, onChange }: SettingsPanelProps) {
     return (<Rows spacing="1u">
       <Text variant="bold">Settings</Text>
       <label>
-        <Text size="small">White shape sensitivity: {settings.threshold}</Text>
+        <Text size="small">Background tolerance: {settings.threshold}</Text>
         <input type="range" min="1" max="255" value={settings.threshold} onChange={(event) => onChange({ ...settings, threshold: Number(event.target.value) })}/>
       </label>
       <label>
@@ -17,7 +17,7 @@ export function SettingsPanel({ settings, onChange }: SettingsPanelProps) {
       </label>
       <label>
         <input type="checkbox" checked={settings.invertMask} onChange={(event) => onChange({ ...settings, invertMask: event.target.checked })}/>{" "}
-        <Text size="small">Use dark area as frame</Text>
+        <Text size="small">Use background as frame</Text>
       </label>
       <Select value={settings.outputMode} onChange={(value) => onChange({ ...settings, outputMode: value as OutputModeSetting })} options={[
             { value: "auto", label: "Auto" },
