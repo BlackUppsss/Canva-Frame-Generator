@@ -36,31 +36,39 @@ function loadImage(source: string): Promise<HTMLImageElement> {
     });
 }
 
+const A4_WIDTH_PT = 595.28;
+const A4_HEIGHT_PT = 841.89;
+const PAGE_MARGIN_PT = 40;
+
 export async function downloadPdf(svg: string, fileName = "canva-frame-generator.pdf"): Promise<void> {
-    const { width, height } = readSvgSize(svg);
-    const scale = Math.min(4, Math.max(2, 2048 / Math.max(width, height)));
+    const { width: svgWidth, height: svgHeight } = readSvgSize(svg);
+    const scale = Math.min(4, Math.max(2, 2048 / Math.max(svgWidth, svgHeight)));
     const canvas = document.createElement("canvas");
-    canvas.width = Math.max(1, Math.round(width * scale));
-    canvas.height = Math.max(1, Math.round(height * scale));
+    canvas.width = Math.max(1, Math.round(svgWidth * scale));
+    canvas.height = Math.max(1, Math.round(svgHeight * scale));
     const context = canvas.getContext("2d");
     if (!context) {
         throw new Error("Unable to create PDF render canvas.");
     }
-    context.fillStyle = "#ffffff";
-    context.fillRect(0, 0, canvas.width, canvas.height);
+    context.clearRect(0, 0, canvas.width, canvas.height);
     const blob = new Blob([svg], { type: "image/svg+xml;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     try {
         const image = await loadImage(url);
         context.drawImage(image, 0, 0, canvas.width, canvas.height);
-        const pageWidth = width;
-        const pageHeight = height;
+        const availableWidth = A4_WIDTH_PT - PAGE_MARGIN_PT * 2;
+        const availableHeight = A4_HEIGHT_PT - PAGE_MARGIN_PT * 2;
+        const fitScale = Math.min(availableWidth / svgWidth, availableHeight / svgHeight);
+        const renderedWidth = svgWidth * fitScale;
+        const renderedHeight = svgHeight * fitScale;
+        const offsetX = (A4_WIDTH_PT - renderedWidth) / 2;
+        const offsetY = (A4_HEIGHT_PT - renderedHeight) / 2;
         const pdf = new jsPDF({
             unit: "pt",
-            format: [pageWidth, pageHeight],
-            orientation: pageWidth > pageHeight ? "landscape" : "portrait",
+            format: "a4",
+            orientation: "portrait",
         });
-        pdf.addImage(canvas.toDataURL("image/png"), "PNG", 0, 0, pageWidth, pageHeight);
+        pdf.addImage(canvas.toDataURL("image/png"), "PNG", offsetX, offsetY, renderedWidth, renderedHeight);
         pdf.save(fileName);
     }
     finally {
